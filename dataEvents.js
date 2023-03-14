@@ -171,21 +171,25 @@ var dataArray = [
     }
 ]
 
-let pastEvents = []
-let upcomingEvents = []
+// Utilizando filter para listar los eventos pasados y futuros
 
-// ### Forma 1 de recorrer el array/objeto ### 
-for (let i = 0; i < dataArray.length; i++) {
-    if (dataArray[i].date >= currentDate) {
-        upcomingEvents.push(dataArray[i])
-    }
-    else {
-        pastEvents.push(dataArray[i])
-    }
+let upcomingEvents = dataArray.filter(dataArray => dataArray.date >= currentDate)
+let pastEvents = dataArray.filter(dataArray => dataArray.date < currentDate)
 
-}
 
-// ### Forma 2 de recorrer el array/objeto ### 
+// 
+// ### Forma 1 de recorrer el array/objeto SOLO CON CICLOS FOR ### 
+// for (let i = 0; i < dataArray.length; i++) {
+//     if (dataArray[i].date >= currentDate) {
+//         upcomingEvents.push(dataArray[i])
+//     }
+//     else {
+//         pastEvents.push(dataArray[i])
+//     }
+
+// }
+
+// ### Forma 2 de recorrer el array/objeto SOLO CON CICLOS FOR ### 
 
 
 // for (let data of dataArray) {
@@ -198,26 +202,28 @@ for (let i = 0; i < dataArray.length; i++) {
 //   homeEvents.push(data)
 // }
 
-
 function cards(array) {
-    let singleCard = ``
+    
     let updateCard = document.getElementById("div-cards-events")
-    for (let i = 0; i < array.length; i++) {
-        singleCard += `
-      <div class="col">
+
+    array = array.map(element => {
+        
+
+        return `
+        <div class="col">
               <div class="card h-100">
-                  <img src="${array[i].image}" class="card-img-top h-50" alt="cinema">
+                  <img src="${element.image}" class="card-img-top h-50" alt="cinema">
                   <div class="card-body">
-                      <h5 class="card-title">${array[i].name}</h5>
-                      <p class="card-text">${array[i].description}</p>
-                      <p class="card-text text-muted">Date: ${array[i].date}</p>
-                      <p class="text-muted card-text">Place: ${array[i].place}</p>
+                      <h5 class="card-title">${element.name}</h5>
+                      <p class="card-text">${element.description}</p>
+                      <p class="card-text text-muted">Date: ${element.date}</p>
+                      <p class="text-muted card-text">Place: ${element.place}</p>
                   </div>
                   <div class="card-footer">
                       <div class="container text-center">
                           <div class="row">
                               <div class="col">
-                                  <p class="text-muted fs-5 text-center">Price:$${array[i].price}</p>
+                                  <p class="text-muted fs-5 text-center">Price:$${element.price}</p>
                           
                                   </div>
                               <div class="col">
@@ -229,12 +235,14 @@ function cards(array) {
                       </div>
                   </div>
               </div>
-          </div>`
-    }
-
-    updateCard.innerHTML = singleCard;
-
+          </div>
+        `
+    })
+    
+    updateCard.innerHTML = array.join('')
+    
 }
+
 
 
 function checkPage() {
