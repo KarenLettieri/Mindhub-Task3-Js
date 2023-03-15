@@ -172,21 +172,20 @@ var dataArray = [
 ]
   ;
 
-  
-
-
+//Print de todas las cards de forma dinamica, usando un map
 function cards(array) {
-  
-    
-    let updateCard = document.getElementById("div-cards")
 
-    array = array.map(element => {
-        
+  let updateCard = document.getElementById("div-cards")
+  if (array.length == 0) {
+    updateCard.innerHTML = "<h2> class= 'display-1-fw-bolder'> No hay coincidencias </h2>"
+    return
+  }
+  array = array.map(element => {
 
-        return `
+    return `
         <div class="col">
               <div class="card h-100">
-                  <img src="${element.image}" class="card-img-top h-50" alt="cinema">
+                  <img src="${element.image}" class="card-img-top h-50">
                   <div class="card-body">
                       <h5 class="card-title">${element.name}</h5>
                       <p class="card-text">${element.description}</p>
@@ -211,31 +210,21 @@ function cards(array) {
               </div>
           </div>
         `
-    })
-    
-    updateCard.innerHTML = array.join('')
-    
-}
+  })
 
+  updateCard.innerHTML = array.join('')
+
+}
+//Llamado de la funcion
 cards(dataArray)
 
+//Mapeo de eventos eliminando las categorias repetidas
 
- 
- 
- 
+let mapEvents = dataArray.map(lista => lista.category);  // mapeas las categorias de los eventos
+const dataA = new Set(mapEvents); // asi te elimina las repetidas
+let dataArrayFiltrado = [...dataA]; // las pasas del constructor al array nuevo (gracias hugoo)
 
-function captureData() {
-  let texto = document.getElementById('id_search').value 
-  let checks = document.querySelectorAll('class_checks:checked')
-
-  
-}
-
-let mapEvents = dataArray.map(lista =>lista.category);  // mapeas las categorias de los eventos
-const dataA = new Set(mapEvents);// asi te elimina las repetidas
-let dataArrayFiltrado =[...dataA];// las pasas del constructor al array nuevo
-
-
+//Print de todos los checks de forma dinamica, usando un map
 function printChecks(id_etiqueta, array_tipos) {
   let container = document.querySelector(id_etiqueta)
   array_tipos = array_tipos.map(each => {
@@ -252,15 +241,59 @@ function printChecks(id_etiqueta, array_tipos) {
     `
   })
   array_tipos.push(`<div class= "input-group mb-2 w-25 container">
-  <input onkeyup="captureData()" id="id_search" class="form-control h-1" type="text" name="texto" placeholder= "Search" > 
+  <input oninput="captureData()"  id="id_search" class="form-control h-1" type="text" name="text" placeholder= "Search" > 
   </div>
   `)
   container.innerHTML = array_tipos.join('')
 }
 
+//Llamamos a la funcion con el ID de los checks y las categorias filtradas sin repetir
 printChecks('#table_checks', dataArrayFiltrado)
 
-//Capturo los datos para realizar el filtro
+//Capturo los datos para realizar el filtro funcional
+
+function captureData() {
+  let text = document.getElementById('id_search').value.toLowerCase()
+  let checks = Array.from(document.querySelectorAll('.class_checks:checked')).map(each => each.value) //Forma no aceptada por Edge, pero nadie usa edge
+  let filter = dataArray.filter(each => {
+    return (
+      each.name.toLowerCase().includes(text)
+    ) && (
+        (checks.length === 0 || checks.includes(each.category))
+      )
+  })
+  if (filter.length > 0) {
+    cards(filter)
+  }
+  else {
+    notFound()
+    
+  }
+}
+
+//Funcion para el print de card no encontrada
+function notFound() {
+  let notFoundCard = document.getElementById("div-cards")
+
+    notFoundCard.innerHTML = `
+        <div class="col">
+              <div class="card h-100">
+                  
+                  <div class="card-body ">
+                      <h5 class="card-title">Card not Found</h5>
+                      <p class="card-text">Please try again</p>
+                      
+                  </div>
+                  
+                   
+              </div>
+          </div>
+        `
+}
+
+
+
+
 
 
 
