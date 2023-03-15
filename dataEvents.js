@@ -231,7 +231,7 @@ function cards(array) {
                               <div class="col">
                               </div>
                               <div class="col">
-                                  <a href="templates/details.html" class="btn btn-secondary">More info</a>
+                              <a href="/templates/details.html?id=${element._id}" class="btn btn-secondary">More info</a>
                               </div>
                           </div>
                       </div>

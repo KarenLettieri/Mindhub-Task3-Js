@@ -2,7 +2,7 @@ let currentDate = "2022-01-01"
 
 var dataArray = [
   {
-    "id": 1,
+    _id: 1,
     "image": "https://i.postimg.cc/Fs03hQDt/Collectivities-Party.jpg",
     "name": "Collectivities Party",
     "date": "2021-12-12",
@@ -14,7 +14,7 @@ var dataArray = [
     "price": 5
   },
   {
-    "id": 2,
+    _id: 2,
     "image": "https://i.postimg.cc/ZmD3Xf57/Korean-style.jpg",
     "name": "Korean style",
     "date": "2022-08-12",
@@ -26,7 +26,7 @@ var dataArray = [
     "price": 10
   },
   {
-    "id": 3,
+    _id: 3,
     "image": "https://i.postimg.cc/GmHRkbNV/Jurassic-Park.jpg",
     "name": "Jurassic Park",
     "date": "2021-11-02",
@@ -38,7 +38,7 @@ var dataArray = [
     "price": 15
   },
   {
-    "id": 4,
+    _id: 4,
     "image": "https://i.postimg.cc/c4C2zXm8/Parisian-Museum.jpg",
     "name": "Parisian Museum",
     "date": "2022-11-02",
@@ -50,7 +50,7 @@ var dataArray = [
     "price": 3500
   },
   {
-    "id": 5,
+    _id: 5,
     "image": "https://i.postimg.cc/KYD0jMf2/comicon.jpg",
     "name": "Comicon",
     "date": "2021-02-12",
@@ -62,7 +62,7 @@ var dataArray = [
     "price": 54
   },
   {
-    "id": 6,
+    _id: 6,
     "image": "https://i.postimg.cc/RZ9fH4Pr/halloween.jpg",
     "name": "Halloween Night",
     "date": "2022-02-12",
@@ -74,7 +74,7 @@ var dataArray = [
     "price": 12
   },
   {
-    "id": 7,
+    _id: 7,
     "image": "https://i.postimg.cc/PrMJ0ZMc/Metallica-in-concert.jpg",
     "name": "Metallica in concert",
     "date": "2022-01-22",
@@ -86,7 +86,7 @@ var dataArray = [
     "price": 150
   },
   {
-    "id": 8,
+    _id: 8,
     "image": "https://i.postimg.cc/KvsSK8cj/Electronic-Fest.jpg",
     "name": "Electronic Fest",
     "date": "2021-01-22",
@@ -98,7 +98,7 @@ var dataArray = [
     "price": 250
   },
   {
-    "id": 9,
+    _id: 9,
     "image": "https://i.postimg.cc/fyLqZY9K/10-K-for-life.jpg",
     "name": "10K for life",
     "date": "2021-03-01",
@@ -110,7 +110,7 @@ var dataArray = [
     "price": 3
   },
   {
-    "id": 10,
+    _id: 10,
     "image": "https://i.postimg.cc/zv67r65z/15kny.jpg",
     "name": "15K NY",
     "date": "2022-03-01",
@@ -122,7 +122,7 @@ var dataArray = [
     "price": 3
   },
   {
-    "id": 11,
+    _id: 11,
     "image": "https://i.postimg.cc/Sst763n6/book1.jpg",
     "name": "School's book fair",
     "date": "2022-10-15",
@@ -134,7 +134,7 @@ var dataArray = [
     "price": 1
   },
   {
-    "id": 12,
+    _id: 12,
     "image": "https://i.postimg.cc/05FhxHVK/book4.jpg",
     "name": "Just for your kitchen",
     "date": "2021-11-09",
@@ -146,7 +146,7 @@ var dataArray = [
     "price": 100
   },
   {
-    "id": 13,
+    _id: 13,
     "image": "https://i.postimg.cc/vH52y81C/cinema4.jpg",
     "name": "Batman",
     "date": "2021-03-11",
@@ -158,7 +158,7 @@ var dataArray = [
     "price": 225
   },
   {
-    "id": 14,
+    _id: 14,
     "image": "https://i.postimg.cc/T3C92KTN/scale.jpg",
     "name": "Avengers",
     "date": "2022-10-15",
@@ -176,10 +176,7 @@ var dataArray = [
 function cards(array) {
 
   let updateCard = document.getElementById("div-cards")
-  if (array.length == 0) {
-    updateCard.innerHTML = "<h2> class= 'display-1-fw-bolder'> No hay coincidencias </h2>"
-    return
-  }
+  
   array = array.map(element => {
 
     return `
@@ -202,7 +199,7 @@ function cards(array) {
                               <div class="col">
                               </div>
                               <div class="col">
-                                  <a href="./templates/details.html?id=${info.id}" class="btn btn-secondary">More info</a>
+                                  <a href="./templates/details.html?id=${element._id}" class="btn btn-secondary">More info</a>
                               </div>
                           </div>
                       </div>
@@ -291,45 +288,7 @@ function notFound() {
         `
 }
 
-  let query = location.search
-  let params = new URLSearchParams(query)
-  let idParams = params.get("id")
-  
-  let details = dataArray.find(info => info.id == idParams)
 
-function detailsCard() {
-  
-  const container = document.getElementById("container-detail")
-  let html = "";
-  
-  html += `
-            <div class="row row-cols-2">
-            <div class="col-6">
-              <img src="${details.image}" class="img-fluid container-sm" >
-            </div>
-            <div class="col-lg-6">
-              <h1>${details.name}</h1>
-              <h3>${details.category}</h3>
-              <p> ${details.description}
-              </p>
-  
-              <p> <span class="text-muted">Price: ${details.price}.</span>
-              </p>
-              <p> <span class="text-muted">Capacity: ${details.capacity}.</span>
-              
-              </p>
-              <p> <span class="text-muted">Place: ${details.place}.</span>
-              </p>
-              
-          </div>
-  `
-  
-  container.innerHTML = html
-  
-  
-}
-
-detailsCard()
 
 
 
