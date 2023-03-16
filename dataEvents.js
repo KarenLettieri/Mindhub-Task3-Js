@@ -265,9 +265,9 @@ checkPage()
 
 //Mapeo de eventos eliminando las categorias repetidas
 
-let mapEvents = dataArray.map(lista => lista.category);  // mapeas las categorias de los eventos
-const dataA = new Set(mapEvents); // asi te elimina las repetidas
-let dataArrayFiltrado = [...dataA]; // las pasas del constructor al array nuevo (gracias hugoo)
+let mapEvents = dataArray.map(lista => lista.category);  
+const dataA = new Set(mapEvents); 
+let dataArrayFiltrado = [...dataA]; 
 
 //Print de todos los checks de forma dinamica, usando un map
 function printChecks(id_etiqueta, array_tipos) {
@@ -299,7 +299,7 @@ printChecks('#table_checks', dataArrayFiltrado)
 
 function captureData() {
     let text = document.getElementById('id_search').value.toLowerCase()
-    let checks = Array.from(document.querySelectorAll('.class_checks:checked')).map(each => each.value) //Forma no aceptada por Edge, pero nadie usa edge
+    let checks = Array.from(document.querySelectorAll('.class_checks:checked')).map(each => each.value) //Forma no aceptada por Edge
     //Antes de realizar el filtro, se chequea que array hay que filtrar con un if.
     let title = document.getElementById("titleMain")
     if (title.textContent == "Upcoming Events") {
@@ -343,10 +343,10 @@ function captureData() {
 
 //Funcion para el print de card no encontrada
 function notFound() {
-    let notFoundCard = document.getElementById("div-cards")
+    let notFoundCard = document.getElementById("div-cards-events")
 
     notFoundCard.innerHTML = `
-        <div class="col">
+        <div class="container text-center">
               <div class="card h-100">
                   
                   <div class="card-body ">

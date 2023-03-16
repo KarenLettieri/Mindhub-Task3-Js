@@ -9,10 +9,10 @@ console.log(idParams)
 
 function detailsCard(array) {
 
-const container = document.getElementById("container-detail")
-let html = "";
+  const container = document.getElementById("container-detail")
+  let html = "";
 
-html += `
+  html += `
           <div class="row row-cols-2">
           <div class="col-6">
             <img src="${array.image}" class="img-fluid container-sm" >
@@ -34,7 +34,7 @@ html += `
         </div>
 `
 
-container.innerHTML = html
+  container.innerHTML = html
 
 
 }
